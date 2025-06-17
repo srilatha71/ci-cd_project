@@ -1,1 +1,54 @@
+// JENKINS CI PIPELINE/
+// Purpose: The Code will be built into executable file (.jar) & pushed to Dockerhub
+// NOTE:
+//  i. Store Dockerhub, EC2 pem key credentials in Jenkins Server
+// ii. Install 'ssh agent' plugin in Jenkins
 
+pipeline {
+    agent any
+    // DECLARE THE VARIABLES HERE:
+    environment {
+        DOCKER_USERNAME = "nasirpatel"     // check the 'ID' in your Jenkins credentials
+    }
+
+    stages {
+        stage("1. Cleanup") {
+            // Clean workspace directory for the current build
+            steps {
+                deleteDir ()             
+            }
+        }
+
+        stage ('2. Git Checkout') {
+            // use pipeline syntax generator to generate below step
+            // 'Pipeline syntax' --> Steps 'Smaple step' --> git (enter url & branch & generate)
+            steps {
+                dir ("DevopsProject1"){
+                  script {
+                    git branch: 'main', url: 'https://github.com/pandacloud1/DevopsProject1.git' 
+                  }
+                }
+            }
+        }   
+        
+   
+        stage('4. Maven Build') {
+            // Build the application into an executable file (.jar)
+            steps{
+                dir ("DevopsProject1"){
+                  sh 'mvn package'   
+                }
+            }
+        }
+
+        stage("5. Maven Integration Test") {
+            //  Test the interaction between different units of code
+            steps{
+                dir ("DevopsProject1"){
+                  sh 'mvn verify'          
+                }
+            }
+        }
+
+    }
+}
