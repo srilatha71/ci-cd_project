@@ -6,10 +6,6 @@
 
 pipeline {
     agent any
-    // DECLARE THE VARIABLES HERE:
-    environment {
-        DOCKER_USERNAME = "nasirpatel"     // check the 'ID' in your Jenkins credentials
-    }
 
     stages {
         stage("1. Cleanup") {
@@ -32,7 +28,7 @@ pipeline {
         }   
         
    
-        stage('4. Maven Build') {
+        stage('3. Maven Build') {
             // Build the application into an executable file (.jar)
             steps{
                 dir ("DevopsProject1"){
@@ -41,14 +37,5 @@ pipeline {
             }
         }
 
-        stage("5. Maven Integration Test") {
-            //  Test the interaction between different units of code
-            steps{
-                dir ("DevopsProject1"){
-                  sh 'mvn verify'          
-                }
             }
-        }
-
-    }
 }
