@@ -6,9 +6,9 @@
 
 pipeline {
     agent any
-       //environment{
+       //environment
          // DOCKER_USERNAME = "srilatha.devi71@gmail.com"
-}
+
 
     stages {
         stage("1. Cleanup") {
