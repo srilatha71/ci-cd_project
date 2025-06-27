@@ -29,14 +29,7 @@ pipeline {
                 }
             }
         }   
- stage('3. Maven Build') {
-            // Build the application into an executable file (.jar)
-            steps{
-                dir ("DevopsProject1"){
-                  sh 'mvn package'   
-                }
-            }
-        }
+
            
 
 }
